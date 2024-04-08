@@ -14,7 +14,7 @@ const Pagination = ({ totalPages, actualPage }: Props) => {
   const allPages = generatePagination(actualPage, totalPages);
 
   return (
-    <div className="flex text-center justify-center mt-10 mb-32">
+    <div className="flex text-center justify-center my-6">
       <nav>
         <ul className="flex list-style-none flex-row items-center">
           <li>

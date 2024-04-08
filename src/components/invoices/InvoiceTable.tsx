@@ -1,5 +1,7 @@
 import { IoReceiptOutline } from "react-icons/io5";
 import { LiaCubesSolid } from "react-icons/lia";
+import InvoiceRow from "./InvoiceRow";
+import Pagination from "../ui/Pagination";
 
 const tableHeadersData = [
   "# Invoice",
@@ -14,10 +16,14 @@ const tableHeadersData = [
 
 const InvoiceTable = () => {
   return (
-    <div className="overflow-x-auto">
+    <div className="h-full w-full md:h-5/6 md:w-5/6 flex flex-col items-center md:pt-10 bg-white md:rounded-xl  ">
+      <button className="self-start text-slate-100 font-bold text-xl bg-slate-900 py-3 px-6 my-5 rounded-xl md:ml-10 ml-2">
+        + Add Invoice
+      </button>
+    <div className="overflow-x-auto  w-full py-8 md:px-10 px-2">
       <table className="table">
         {/* head */}
-        <thead>
+        <thead className="text-lg font-bold">
           <tr>
             {tableHeadersData.map((header) => {
               return <th key={header}> {header} </th>;
@@ -26,30 +32,19 @@ const InvoiceTable = () => {
           </tr>
         </thead>
         <tbody>
-          {/* row 1 */}
-          <tr>
-            <td>375</td>
-            <td>
-              Client
-              <br />
-              <span className="badge badge-ghost badge-sm">
-                Client Seniority: 4yrs
-              </span>
-            </td>
-            <td>25/12/2015</td>
-            <td>$500</td>
-            <td>10%</td>
-            <td>$450</td>
-            <td>
-              <IoReceiptOutline size={30} />
-            </td>
-            <td>
-              <LiaCubesSolid size={30} />
-            </td>
-          </tr>
-          {/* row 2 */}
+          <InvoiceRow />
+          <InvoiceRow />
+          <InvoiceRow />
+          <InvoiceRow />
+          <InvoiceRow />
+          <InvoiceRow />
+          <InvoiceRow />
+          <InvoiceRow />
+          <InvoiceRow />
         </tbody>
       </table>
+    </div>
+    <Pagination actualPage={1} totalPages={5} />
     </div>
   );
 };
