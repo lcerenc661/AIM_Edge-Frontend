@@ -1,14 +1,13 @@
-import { InvoiceTable, Pagination, Sidebar, TopMenu } from "../components";
+import { InvoiceTable,  Sidebar, TopMenu } from "../components";
 
 const InvoicePage = () => {
   return (
     <body>
       <Sidebar />
-      <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] min-h-screen">
+      <div className="ml-auto lg:w-[75%] xl:w-[80%] 2xl:w-[85%] h-screen overflow-hidden bg-gray-100">
         <TopMenu />
-        <div className="px-6 pt-6">
+        <div className="md:px-6 md:pt-6 flex justify-center items-center md:h-[80%] h-full ">
           <InvoiceTable />
-          <Pagination actualPage={1} totalPages={5} />
         </div>
       </div>
     </body>
