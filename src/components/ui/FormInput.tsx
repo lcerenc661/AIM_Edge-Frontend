@@ -2,7 +2,7 @@ interface Props {
   label: string;
   name: string;
   type: string;
-  size: string;
+  size?: string;
 }
 
 const FormInput = ({ label, name, type, size }: Props) => {

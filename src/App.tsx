@@ -1,25 +1,26 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthLayout, InvoicePage } from "./pages/index";
+import { AuthLayout, InvoicePage, RegisterPage } from "./pages/index";
+import LoginPage from "./pages/LoginPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <InvoicePage />,
   },
-  // {
-  //   path: "/auth/",
-  //   element: <AuthLayout />,
-  //   children: [
-  //     {
-  //       path: "register",
-  //       element: <div>register</div>,
-  //     },
-  //     {
-  //       path: "login",
-  //       element: <div>login</div>,
-  //     },
-  //   ],
-  // },
+  {
+    path: "/auth/",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "register",
+        element: <RegisterPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+    ],
+  },
 ]);
 
 function App() {
