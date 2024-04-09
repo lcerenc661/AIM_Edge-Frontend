@@ -1,33 +1,39 @@
-const Modals = () => {
+import React from "react";
+
+interface Props {
+  childrenModal: React.ReactNode;
+  childrenButton: React.ReactNode;
+  modalKey: string;
+}
+
+const Modals = ({ childrenModal, childrenButton, modalKey }: Props) => {
+  const modalRef = React.useRef<HTMLDialogElement>(null);
+
+  const openModal = () => {
+    if (modalRef.current) {
+      modalRef.current.showModal();
+    }
+  };
+
   return (
     <>
-      <button
-        className="btn"
-        onClick={() => {
-          const modal = document.getElementById(
-            "my_modal_5"
-          ) as HTMLDialogElement;
-          if (modal) {
-            modal.showModal();
-          }
-        }}>
-        open modal
+      <button onClick={openModal}>
+        {childrenButton}
       </button>
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
+      <dialog id={modalKey} className="modal" ref={modalRef}>
+        <div className="modal-box w-11/12 max-w-6xl">
+          <div className="flex flex-col items-center">
+            {childrenModal}
+            <div className="modal-action self-end">
+              <button className="btn" onClick={() => modalRef.current?.close()}>
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </dialog>
     </>
   );
 };
+
 export default Modals;

@@ -1,6 +1,8 @@
 import { IoReceiptOutline } from "react-icons/io5";
 import { LiaCubesSolid } from "react-icons/lia";
 import Modals from "../ui/Modals";
+import InvoiceSummary from "./InvoiceSummary";
+import Voucher from "./Voucher";
 
 const InvoiceRow = () => {
   return (
@@ -12,12 +14,20 @@ const InvoiceRow = () => {
       <td>10%</td>
       <td>$450</td>
       <td>
-        {/* <IoReceiptOutline size={30} /> */}
-        <Modals />
+        <Modals
+          childrenModal={<Voucher />}
+          childrenButton={<IoReceiptOutline size={30} />}
+          modalKey="voucher"
+        />
+        {/* <LiaCubesSolid size={30} /> */}
       </td>
       <td>
         {/* <LiaCubesSolid size={30} /> */}
-        <Modals />
+        <Modals
+          childrenModal={<InvoiceSummary />}
+          childrenButton={<LiaCubesSolid size={30} />}
+          modalKey="voucher"
+        />
       </td>
     </tr>
   );
