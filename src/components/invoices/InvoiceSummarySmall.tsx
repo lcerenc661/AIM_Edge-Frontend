@@ -17,9 +17,9 @@ const InvoiceSummarySmall = () => {
             </tr>
           </thead>
           <tbody>
+            {/* <SummaryRow />
             <SummaryRow />
-            <SummaryRow />
-            <SummaryRow />
+            <SummaryRow /> */}
           </tbody>
         </table>
       </div>

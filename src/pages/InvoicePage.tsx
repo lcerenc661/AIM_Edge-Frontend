@@ -4,7 +4,10 @@ import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const invoiceQuery = (queryParams: any, token: string) => {
-  const { page } = queryParams;
+  let { page } = queryParams;
+  if (page<=0){
+    page = 1
+  }
   return {
     queryKey: [page ?? 1],
     queryFn: () =>
@@ -35,10 +38,15 @@ export const loader =
     const response = await queryClient.ensureQueryData(
       invoiceQuery(params, token)
     );
+    const usersResponse = await customFetch("/users")
+    const productResponse = await customFetch("/products")
+    const products = productResponse.data.productsArray;
+    const users = usersResponse.data.usersArray;
+    console.log(users)
     const invoices = response.data.invoicesArray;
     const meta = response.data.paginationInfo;
-    
-    return { invoices, meta,user };
+
+    return { invoices, meta, user, users, products };
   };
 
 const InvoicePage = () => {

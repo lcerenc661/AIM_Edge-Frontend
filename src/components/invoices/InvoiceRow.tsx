@@ -37,16 +37,16 @@ const InvoiceRow = ({
         <Modals
           childrenModal={<Voucher />}
           childrenButton={<IoReceiptOutline size={30} />}
-          modalKey="voucher"
+          modalKey={`${invoiceNumber}Receipt`}
         />
         {/* <LiaCubesSolid size={30} /> */}
       </td>
       <td>
         {/* <LiaCubesSolid size={30} /> */}
         <Modals
-          childrenModal={<InvoiceSummary />}
+          childrenModal={<InvoiceSummary products={products} />}
           childrenButton={<LiaCubesSolid size={30} />}
-          modalKey="voucher"
+          modalKey={`${invoiceNumber}Products`}
         />
       </td>
     </tr>

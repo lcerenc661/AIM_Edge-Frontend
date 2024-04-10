@@ -1,10 +1,10 @@
-import { Form, Link, RedirectFunction, redirect } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import { FormInput } from "../components";
 
 import SubmitBtn from "../components/ui/SubmitBtn";
 import { toast } from "react-toastify";
 import { customFetch } from "../api/axios";
-import { Dispatch } from "@reduxjs/toolkit";
+
 import { loginUser } from "../features/user/userSlice";
 
 

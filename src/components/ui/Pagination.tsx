@@ -17,37 +17,40 @@ const Pagination = ({ totalPages, actualPage }: Props) => {
     <div className="flex text-center justify-center my-6">
       <nav>
         <ul className="flex list-style-none flex-row items-center">
-          <li>
-            <a
-              className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="/">
-              <IoChevronBackOutline size={30} />
-            </a>
-          </li>
+          {actualPage > 1 && (
+            <li>
+              <a
+                className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                href={`/?page=${actualPage - 1}`}>
+                <IoChevronBackOutline size={30} />
+              </a>
+            </li>
+          )}
 
           {allPages.map((page, index) => {
             return (
               <li key={index}>
                 <a
                   className={`relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${
-                    page === actualPage
-                      ? "bg-slate-900 shadow-sm  hover:text-white hover:bg-blue-700 border border-slate-900"
+                    +page === +actualPage
+                      ? "bg-slate-900 shadow-sm  hover:text-white hover:bg-blue-700 border-2 border-slate-900"
                       : ""
                   }`}
-                  href="/">
+                  href={`/?page=${page}`}>
                   {page}
                 </a>
               </li>
             );
           })}
-
-          <li>
-            <a
-              className="relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="/">
-              <IoChevronForwardOutline size={30} />
-            </a>
-          </li>
+          {actualPage < totalPages && (
+            <li>
+              <a
+                className="relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                href={`/?page=${actualPage + 1}`}>
+                <IoChevronForwardOutline size={30} />
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
