@@ -4,6 +4,7 @@ import InvoiceRow from "./InvoiceRow";
 import Pagination from "../ui/Pagination";
 import Modals from "../ui/Modals";
 import CreateInvoice from "./CreateInvoice";
+import { useLoaderData } from "react-router-dom";
 
 const tableHeadersData = [
   "# Invoice",
@@ -17,19 +18,24 @@ const tableHeadersData = [
 ];
 
 const InvoiceTable = () => {
+  const { invoices, meta, user }: any = useLoaderData();
+
   return (
     <div className="h-full w-full md:h-5/6 md:w-5/6 flex flex-col items-center md:pt-10 bg-white md:rounded-xl  ">
-      <div className="self-start md:ml-10 ml-2">
-        <Modals
-          childrenModal={<CreateInvoice />}
-          childrenButton={
-            <div className=" text-slate-100 font-bold text-xl bg-slate-900 py-3 px-6 my-5 rounded-xl ">
-              + Add Invoice
-            </div>
-          }
-          modalKey={"createInvoice"}
-        />
-      </div>
+      {user.role === "admin" && (
+        <div className="self-start md:ml-10 ml-2">
+          <Modals
+            childrenModal={<CreateInvoice />}
+            childrenButton={
+              <div className=" text-slate-100 font-bold text-xl bg-slate-900 py-3 px-6 my-5 rounded-xl ">
+                + Add Invoice
+              </div>
+            }
+            modalKey={"createInvoice"}
+          />
+        </div>
+      )}
+
       <div className="overflow-x-auto  w-full py-8 md:px-10 px-2">
         <table className="table">
           {/* head */}
@@ -42,15 +48,31 @@ const InvoiceTable = () => {
             </tr>
           </thead>
           <tbody>
-            <InvoiceRow />
-            <InvoiceRow />
-            <InvoiceRow />
-            <InvoiceRow />
-            <InvoiceRow />
-            <InvoiceRow />
-            <InvoiceRow />
-            <InvoiceRow />
-            <InvoiceRow />
+            {invoices.map((invoice: any) => {
+              const {
+                Image,
+                client,
+                date,
+                discount,
+                invoiceNumber,
+                products,
+                subTotal,
+                total,
+              } = invoice;
+              return (
+                <InvoiceRow
+                  key={invoiceNumber}
+                  Image={Image}
+                  client={client}
+                  date={date}
+                  discount={discount}
+                  invoiceNumber={invoiceNumber}
+                  products={products}
+                  subtotal={subTotal}
+                  total={total}
+                />
+              );
+            })}
           </tbody>
         </table>
       </div>

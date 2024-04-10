@@ -2,6 +2,9 @@ import { CiLogout } from "react-icons/ci";
 
 import { IoListOutline } from "react-icons/io5";
 import SidebarItem from "./SidebarItem";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { logOutUser } from "../../features/user/userSlice";
 
 const menuItem = [
   {
@@ -12,6 +15,16 @@ const menuItem = [
 ];
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); 
+  const { user }: any = useLoaderData();
+
+
+  const handleClick = () => {
+    dispatch(logOutUser());
+    navigate("/auth/login");
+  };
+
   return (
     <aside className="ml-[-100%] fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-slate-900 text-gray-100 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]">
       <div>
@@ -23,9 +36,9 @@ const Sidebar = () => {
 
         <div className="mt-8 text-center">
           <h5 className="hidden mt-4 text-xl font-semibold  lg:block">
-            AIM EDGE APPS
+            {user.name}
           </h5>
-          <span className="hidden text-gray-400 lg:block">Admin</span>
+          <span className="hidden text-gray-400 lg:block">{user.role} </span>
         </div>
 
         <ul className="space-y-2 tracking-wide mt-8">
@@ -44,11 +57,11 @@ const Sidebar = () => {
       </div>
 
       <div className="px-6 -mx-6 pt-4 flex justify-between items-center border-t">
-        <button className="px-4 py-3 flex items-center space-x-2 rounded-md text-gray-400 group">
+        <button
+          className="px-4 py-3 flex items-center space-x-2 rounded-md text-gray-400 group"
+          onClick={handleClick}>
           <CiLogout />
-          <span className=" group-hover:text-gray-200">
-            |  Logout
-          </span>
+          <span className=" group-hover:text-gray-200">| Logout</span>
         </button>
       </div>
     </aside>

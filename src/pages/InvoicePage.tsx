@@ -3,10 +3,42 @@ import { customFetch } from "../api/axios";
 import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export const loader =
-  (store:any) =>
-  async ({ request }:any) => {
+const invoiceQuery = (queryParams: any, token: string) => {
+  const { page } = queryParams;
+  return {
+    queryKey: [page ?? 1],
+    queryFn: () =>
+      customFetch.get("/invoices", {
+        params: queryParams,
+        headers: {
+          authorization: "Bearer " + token,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }),
+  };
+};
 
+export const loader =
+  (store: any, queryClient: any) =>
+  async ({ request }: any) => {
+    const user = store.getState().userState.user;
+    const { token } = user;
+    if (!user) {
+      toast.error("You must login to view orders");
+      return redirect("/auth/login");
+    }
+
+    const params = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries(),
+    ]);
+    const response = await queryClient.ensureQueryData(
+      invoiceQuery(params, token)
+    );
+    const invoices = response.data.invoicesArray;
+    const meta = response.data.paginationInfo;
+    
+    return { invoices, meta,user };
   };
 
 const InvoicePage = () => {
