@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 
 const invoiceQuery = (queryParams: any, token: string) => {
   let { page } = queryParams;
-  if (page<=0){
-    page = 1
+  if (page <= 0) {
+    page = 1;
   }
   return {
     queryKey: [page ?? 1],
@@ -26,7 +26,13 @@ export const loader =
   (store: any, queryClient: any) =>
   async ({ request }: any) => {
     const user = store.getState().userState.user;
-    const { token } = user;
+    let token;
+    try {
+      token = user.token;
+    } catch (error) {
+      return redirect("/auth/login");
+    }
+
     if (!user) {
       toast.error("You must login to view orders");
       return redirect("/auth/login");
@@ -35,14 +41,18 @@ export const loader =
     const params = Object.fromEntries([
       ...new URL(request.url).searchParams.entries(),
     ]);
-    const response = await queryClient.ensureQueryData(
-      invoiceQuery(params, token)
-    );
-    const usersResponse = await customFetch("/users")
-    const productResponse = await customFetch("/products")
+    let response;
+    try {
+      response = await queryClient.ensureQueryData(invoiceQuery(params, token));
+    } catch (error) {
+      return redirect("/auth/login");
+    }
+
+    const usersResponse = await customFetch("/users");
+    const productResponse = await customFetch("/products");
     const products = productResponse.data.productsArray;
     const users = usersResponse.data.usersArray;
-    console.log(users)
+    console.log(users);
     const invoices = response.data.invoicesArray;
     const meta = response.data.paginationInfo;
 

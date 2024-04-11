@@ -1,4 +1,3 @@
-
 import InvoiceRow from "./InvoiceRow";
 import Pagination from "../ui/Pagination";
 import Modals from "../ui/Modals";
@@ -27,7 +26,7 @@ const InvoiceTable = () => {
   }
 
   return (
-    <div className="h-full w-full md:h-5/6 md:w-5/6 flex flex-col items-center md:pt-10 bg-white md:rounded-xl  ">
+    <div className="h-full w-full flex flex-col items-center md:pt-10 bg-white md:rounded-xl  ">
       {user.role === "admin" && (
         <div className="self-start md:ml-10 ml-2">
           <Modals

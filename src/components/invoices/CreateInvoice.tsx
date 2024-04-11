@@ -2,13 +2,33 @@ import React, { useState } from "react";
 import FormInput from "../ui/FormInput";
 import FormSelect from "../ui/FormSelect";
 import InvoiceSummarySmall from "./InvoiceSummarySmall";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  clearCart,
+  setInvoiceClient,
+  setInvoiceDiscount,
+} from "../../features/cart/cartSlice";
+import { RootState } from "../../utils/store";
+import { toast } from "react-toastify";
+import { IoCheckmarkDone } from "react-icons/io5";
+import { customFetch } from "../../api/axios";
+import { redirect } from "react-router-dom";
+import axios from "axios";
 
+interface User {
+  clientSeniority: string;
+  id: string;
+  name: string;
+  totalSales: null | string | number;
+}
 interface Props {
-  users: { name: string }[]; // Assuming users is an array of objects with a name property
-  products: { name: string }[]; // Assuming products is an array of objects with a name property
+  users: User[];
+  products: { name: string }[];
 }
 
 const CreateInvoice = ({ users, products }: Props) => {
+  const dispatch = useDispatch();
   const productsNames = products.map((product: any) => product.name);
   const usersNames = users.map((user: any) => user.name);
   const [client, setClient] = useState("");
@@ -18,10 +38,25 @@ const CreateInvoice = ({ users, products }: Props) => {
 
   const handleClientChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setClient(event.target.value);
+    const newName = event.target.value;
+    console.log({ client: newName });
+    const selectedClient = users.filter((user) => user.name == newName);
+    if (selectedClient[0]) {
+      const { clientSeniority, id, name, totalSales } = selectedClient[0];
+      dispatch(setInvoiceClient({ clientSeniority, id, name, totalSales }));
+    }
   };
 
   const handleDiscountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDiscount(event.target.value);
+  };
+
+  const handleApplyDiscount = () => {
+    if (!Number(discount)) {
+      return toast.error("Please enter a numeric value (0-100)");
+    }
+
+    dispatch(setInvoiceDiscount(+discount));
   };
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,13 +68,64 @@ const CreateInvoice = ({ users, products }: Props) => {
   };
 
   const handleClick = () => {
-    const selClient = users.filter((user) => user.name == client);
-
+    console.log({ name: selectedProduct });
     const selProduct = products.filter(
       (product) => product.name == selectedProduct
     );
-    console.log(selClient, selProduct);
-    console.log(client, selectedProduct);
+    console.log(selProduct);
+    if (selProduct[0]) {
+      const { id, name, value } = selProduct[0] as any;
+      if (quantity === "") {
+        return toast.error("Select Quantity");
+      }
+      // dispatch(addToCart(payload:{ quantity, ...selProduct }));
+      dispatch(addToCart({ quantity, id, name, value }));
+    }
+  };
+
+  const handleDelete = () => {
+    dispatch(clearCart());
+  };
+
+  const invoiceTotal = useSelector(
+    (state: RootState) => state.cartState.cartTotal
+  );
+  const discountApplied = useSelector(
+    (state: RootState) => state.cartState.discount
+  );
+
+  const user = useSelector((state: any) => state.userState.user);
+
+  const token = user.token;
+  const data = useSelector((state: RootState) => state.cartState.requestData);
+  console.log({ data });
+
+  axios.interceptors.request.use(function (config) {
+    config.headers.Authorization = "Bearer " + token;
+
+    return config;
+  });
+  const handleSaveInvoice = async () => {
+    try {
+      console.log(token);
+      const response = await axios.post(
+        "https://aim-edge-backend.onrender.com/api/invoices",
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            // Authorization: "Bearer " + token,
+            // "Allow-Headers": "Authorization",
+          },
+          data: { data },
+        }
+      );
+      console.log(response);
+      return redirect("/");
+    } catch (err) {
+      toast.error("There has been an error");
+      console.log(err);
+    }
   };
 
   return (
@@ -62,14 +148,28 @@ const CreateInvoice = ({ users, products }: Props) => {
               value={client}
               onChange={handleClientChange}
             />
-            <FormInput
-              label={"discount"}
-              name={"discount"}
-              type={"input"}
-              size={"w-[200px] row-start-2 "}
-              value={discount}
-              onChange={handleDiscountChange}
-            />
+            <div className="flex gap-4 items-center relative">
+              {+discountApplied > 0 && (
+                <div className="absolute -left-10 bottom-2 rounded-full bg-green-700 text-white  transition-all ">
+                  <IoCheckmarkDone size={25} />
+                </div>
+              )}
+
+              <FormInput
+                label={"discount"}
+                name={"discount"}
+                type={"input"}
+                size={"w-[200px] row-start-2 "}
+                value={discount}
+                onChange={handleDiscountChange}
+              />
+              <div
+                onClick={() => handleApplyDiscount()}
+                className="btn-sm bg-slate-800 text-white self-end rounded-lg mb-1">
+                {" "}
+                Apply
+              </div>
+            </div>
 
             <div className="flex md:flex-row flex-col items-center gap-2">
               <div>
@@ -121,9 +221,26 @@ const CreateInvoice = ({ users, products }: Props) => {
             </div>
           </div>
         </div>
-        <div className=" flex gap-6">
-          <button className="btn">Save</button>
-          <button className="btn">Cancel</button>
+        <div className="flex gap-8 items-center ">
+          <div>
+            <button
+              type="button"
+              className="btn m-3"
+              onClick={() => handleSaveInvoice()}>
+              Save
+            </button>
+            <button
+              className="btn m-3"
+              type="button"
+              onClick={() => handleDelete()}>
+              Delete
+            </button>
+          </div>
+          <p className="font-bold text-4xl">
+            {" "}
+            <span className="text-2xl font-light"> Total</span>{" "}
+            {invoiceTotal as any}{" "}
+          </p>
         </div>
       </form>
     </div>

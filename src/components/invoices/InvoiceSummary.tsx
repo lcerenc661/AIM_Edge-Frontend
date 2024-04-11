@@ -11,7 +11,6 @@ interface Props {
 }
 
 const InvoiceSummary = ({ products }: Props) => {
-  console.log(products)
   return (
     <div className="h-full w-full flex flex-col items-center md:pt-10 bg-white md:rounded-xl  ">
       <div className="overflow-x-auto  w-full py-8 md:px-10 px-2">
@@ -23,12 +22,11 @@ const InvoiceSummary = ({ products }: Props) => {
                 return <th key={header}> {header} </th>;
               })}
               <th></th>
-            </tr> 
+            </tr>
           </thead>
           <tbody>
-           
-            { products.map((product, i)=>{
-              return ( <SummaryRow product={product} key={i} />)
+            {products.map((product, i) => {
+              return <SummaryRow product={product} key={i} />;
             })}
           </tbody>
         </table>
