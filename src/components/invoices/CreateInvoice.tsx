@@ -12,7 +12,6 @@ import {
 import { RootState } from "../../utils/store";
 import { toast } from "react-toastify";
 import { IoCheckmarkDone } from "react-icons/io5";
-import { customFetch } from "../../api/axios";
 import { redirect } from "react-router-dom";
 import axios from "axios";
 
@@ -98,27 +97,20 @@ const CreateInvoice = ({ users, products }: Props) => {
 
   const token = user.token;
   const data = useSelector((state: RootState) => state.cartState.requestData);
-  console.log({ data });
 
   axios.interceptors.request.use(function (config) {
     config.headers.Authorization = "Bearer " + token;
 
     return config;
   });
+
   const handleSaveInvoice = async () => {
+    const requestData = JSON.stringify({ ...data });
+    console.log(requestData)
     try {
-      console.log(token);
       const response = await axios.post(
         "https://aim-edge-backend.onrender.com/api/invoices",
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            // Authorization: "Bearer " + token,
-            // "Allow-Headers": "Authorization",
-          },
-          data: { data },
-        }
+        {...data}
       );
       console.log(response);
       return redirect("/");

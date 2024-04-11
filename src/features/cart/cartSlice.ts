@@ -149,7 +149,7 @@ const cartSlice = createSlice({
       state.requestData = {
         clientId: state.client.id,
         clientSeniority: state.client.clientSeniority,
-        totalSales: state.client.totalSales,
+        totalSales: state.client.totalSales ?? 0,
         invoiceImage: "Image test",
         discount: state.discount,
         invoiceProducts: state.cartItems.map((item) => {
