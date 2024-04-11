@@ -15,6 +15,8 @@ import { IoCheckmarkDone } from "react-icons/io5";
 import { redirect } from "react-router-dom";
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+
 interface User {
   clientSeniority: string;
   id: string;
@@ -27,9 +29,17 @@ interface Props {
 }
 
 const CreateInvoice = ({ users, products }: Props) => {
+  const navigate = useNavigate();
+
+  const refreshPage = () => {
+    navigate(0);
+    //refreshingg
+  };
+
   const dispatch = useDispatch();
   const productsNames = products.map((product: any) => product.name);
   const usersNames = users.map((user: any) => user.name);
+
   const [client, setClient] = useState("");
   const [discount, setDiscount] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -106,14 +116,14 @@ const CreateInvoice = ({ users, products }: Props) => {
 
   const handleSaveInvoice = async () => {
     const requestData = JSON.stringify({ ...data });
-    console.log(requestData)
+    console.log(requestData);
     try {
       const response = await axios.post(
         "https://aim-edge-backend.onrender.com/api/invoices",
-        {...data}
+        { ...data }
       );
       console.log(response);
-      return redirect("/");
+      return refreshPage();
     } catch (err) {
       toast.error("There has been an error");
       console.log(err);
