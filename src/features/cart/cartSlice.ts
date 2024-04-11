@@ -148,6 +148,7 @@ const cartSlice = createSlice({
 
     setImageLink: (state, action) => {
       state.invoiceImage = action.payload;
+      cartSlice.caseReducers.createRequestObject(state);
       console.log(current(state));
     },
 
@@ -156,7 +157,7 @@ const cartSlice = createSlice({
         clientId: state.client.id,
         clientSeniority: state.client.clientSeniority,
         totalSales: state.client.totalSales ?? 0,
-        invoiceImage: "Image test",
+        invoiceImage: state.invoiceImage,
         discount: state.discount,
         invoiceProducts: state.cartItems.map((item) => {
           return { product: item.id, quantity: +item.quantity };

@@ -44,6 +44,7 @@ export const loader =
     let response;
     try {
       response = await queryClient.ensureQueryData(invoiceQuery(params, token));
+      console.log(response)
     } catch (error) {
       return redirect("/auth/login");
     }
