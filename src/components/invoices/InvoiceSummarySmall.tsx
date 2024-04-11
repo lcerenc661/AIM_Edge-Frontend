@@ -1,10 +1,15 @@
 import SummaryRow from "./SummaryRow";
+import { useSelector } from "react-redux";
+import SummaryRowSmall from "./SummaryRowSmall";
+import { RootState } from "../../utils/store";
 
 const tableHeadersData = ["Product ID", "Quantity", "Products Name"];
 
 const InvoiceSummarySmall = () => {
+  const cart = useSelector((state: RootState) => state.cartState.cartItems);
+
   return (
-    <div className="h-[200px] w-[80%] flex flex-col items-center  bg-white md:rounded-xl  ">  
+    <div className="h-[200px] w-[80%] flex flex-col items-center  bg-white md:rounded-xl  ">
       <div className="overflow-x-auto  w-full ">
         <table className="table">
           {/* head */}
@@ -17,9 +22,18 @@ const InvoiceSummarySmall = () => {
             </tr>
           </thead>
           <tbody>
-            <SummaryRow />
-            <SummaryRow />
-            <SummaryRow />
+            {cart.length >= 1 &&
+              cart.map((item, i) => {
+                const { name, quantity, id } = item;
+                return (
+                  <SummaryRowSmall
+                    name={name}
+                    quantity={quantity}
+                    id={id}
+                    key={i}
+                  />
+                );
+              })}
           </tbody>
         </table>
       </div>

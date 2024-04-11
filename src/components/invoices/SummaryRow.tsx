@@ -1,11 +1,18 @@
+interface Product {
+  productID: string;
+  quantity: number;
+  productName: string;
+}
+interface Props {
+  product: Product;
+}
 
-
-const SummaryRow = () => {
+const SummaryRow = ({ product }: Props) => {
   return (
     <tr>
-      <td>234</td>
-      <td>2</td>
-      <td>IphoneS3</td>
+      <td>{product.productID} </td>
+      <td>{product.quantity} </td>
+      <td>{product.productName}</td>
     </tr>
   );
 };

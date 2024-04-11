@@ -3,9 +3,11 @@ interface Props {
   name: string;
   type: string;
   size?: string;
+  value?: any;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const FormInput = ({ label, name, type, size }: Props) => {
+const FormInput = ({ label, name, type, size, value, onChange }: Props) => {
   return (
     <div className="form-control ">
       <label htmlFor={name} className="label">
@@ -14,7 +16,9 @@ const FormInput = ({ label, name, type, size }: Props) => {
       <input
         type={type}
         name={name}
+        value={value}
         className={`input input-bordered input-sm ${size}`}
+        onChange={onChange}
       />
     </div>
   );

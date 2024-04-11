@@ -4,29 +4,49 @@ import Modals from "../ui/Modals";
 import InvoiceSummary from "./InvoiceSummary";
 import Voucher from "./Voucher";
 
-const InvoiceRow = () => {
+interface Props {
+  Image: string;
+  client: string;
+  date: string;
+  discount: number;
+  invoiceNumber: string;
+  products: [];
+  subtotal: number;
+  total: string;
+}
+
+const InvoiceRow = ({
+  client,
+  Image,
+  discount,
+  date,
+  invoiceNumber,
+  products,
+  total,
+  subtotal,
+}: Props) => {
   return (
     <tr>
-      <td>375</td>
-      <td>Client</td>
-      <td>25/12/2015</td>
-      <td>$500</td>
-      <td>10%</td>
-      <td>$450</td>
+      <td>{invoiceNumber} </td>
+      <td>{client} </td>
+      <td>{date} </td>
+      <td>${subtotal} </td>
+      <td>%{discount} </td>
+      <td>${total}</td>
       <td>
         <Modals
           childrenModal={<Voucher />}
           childrenButton={<IoReceiptOutline size={30} />}
-          modalKey="voucher"
+          modalKey={`${invoiceNumber}Receipt`}
         />
         {/* <LiaCubesSolid size={30} /> */}
       </td>
       <td>
         {/* <LiaCubesSolid size={30} /> */}
         <Modals
-          childrenModal={<InvoiceSummary />}
+          childrenModal={<InvoiceSummary products={products} />}
           childrenButton={<LiaCubesSolid size={30} />}
-          modalKey="voucher"
+          modalKey={`${invoiceNumber}Products`}
         />
       </td>
     </tr>
