@@ -12,7 +12,6 @@ import {
 import { RootState } from "../../utils/store";
 import { toast } from "react-toastify";
 import { IoCheckmarkDone } from "react-icons/io5";
-import { redirect } from "react-router-dom";
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
@@ -49,7 +48,7 @@ const CreateInvoice = ({ users, products }: Props) => {
     setClient(event.target.value);
     const newName = event.target.value;
     console.log({ client: newName });
-    const selectedClient = users.filter((user) => user.name == newName);
+    const selectedClient = users.filter((user) => user.name === newName);
     if (selectedClient[0]) {
       const { clientSeniority, id, name, totalSales } = selectedClient[0];
       dispatch(setInvoiceClient({ clientSeniority, id, name, totalSales }));
@@ -79,7 +78,7 @@ const CreateInvoice = ({ users, products }: Props) => {
   const handleClick = () => {
     console.log({ name: selectedProduct });
     const selProduct = products.filter(
-      (product) => product.name == selectedProduct
+      (product) => product.name === selectedProduct
     );
     console.log(selProduct);
     if (selProduct[0]) {

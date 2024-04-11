@@ -2,7 +2,7 @@ import { CiLogout } from "react-icons/ci";
 
 import { IoListOutline } from "react-icons/io5";
 import SidebarItem from "./SidebarItem";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { logOutUser } from "../../features/user/userSlice";
 
