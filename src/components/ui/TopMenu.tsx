@@ -1,7 +1,7 @@
 import { CiLogout } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../features/user/userSlice";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const TopMenu = () => {
   const dispatch = useDispatch();

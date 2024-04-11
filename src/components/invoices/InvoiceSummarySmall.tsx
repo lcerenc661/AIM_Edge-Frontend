@@ -1,4 +1,4 @@
-import SummaryRow from "./SummaryRow";
+
 import { useSelector } from "react-redux";
 import SummaryRowSmall from "./SummaryRowSmall";
 import { RootState } from "../../utils/store";

@@ -3,7 +3,6 @@ import { FormInput } from "../components";
 import SubmitBtn from "../components/ui/SubmitBtn";
 import { customFetch } from "../api/axios";
 import { toast } from "react-toastify";
-import { loginUser } from "../features/user/userSlice";
 
 export const action =( store:any) => async ({
   request,
