@@ -52,7 +52,6 @@ export const loader =
     const productResponse = await customFetch("/products");
     const products = productResponse.data.productsArray;
     const users = usersResponse.data.usersArray;
-    console.log(users);
     const invoices = response.data.invoicesArray;
     const meta = response.data.paginationInfo;
 
