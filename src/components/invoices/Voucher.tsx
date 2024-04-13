@@ -1,5 +1,6 @@
 interface Props {
   image: string;
+  invoiceID: string;
 }
 
 const Voucher = ({ image }: Props) => {
