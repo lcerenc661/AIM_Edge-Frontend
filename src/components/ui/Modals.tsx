@@ -1,4 +1,5 @@
 import React from "react";
+import { IoCloseOutline } from "react-icons/io5";
 
 interface Props {
   childrenModal: React.ReactNode;
@@ -21,12 +22,12 @@ const Modals = ({ childrenModal, childrenButton, modalKey }: Props) => {
         {childrenButton}
       </button>
       <dialog id={modalKey} className="modal" ref={modalRef}>
-        <div className="modal-box w-11/12 max-w-6xl">
+        <div className="modal-box w-11/12 max-w-6xl relative">
           <div className="flex flex-col items-center">
             {childrenModal}
-            <div className="modal-action self-end">
-              <button className="btn" onClick={() => modalRef.current?.close()}>
-                Close
+            <div className="modal-action self-end absolute top-0 right-5">
+              <button className="text-red-800 border-red-800 rounded-full border-2 p-1 " onClick={() => modalRef.current?.close()}>
+                <IoCloseOutline />
               </button>
             </div>
           </div>
