@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import VoucherImage from "./VoucherImage";
 
 interface Props {
   image: string;
@@ -9,7 +10,7 @@ const Voucher = ({ image, invoiceID }: Props) => {
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const currentImageRef = imageRef.current; // Copiar el valor de imageRef.current en una variable local
+    const currentImageRef = imageRef.current;
 
     return () => {
       if (currentImageRef) {
@@ -22,12 +23,10 @@ const Voucher = ({ image, invoiceID }: Props) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h3 className="text-xl font-bold my-3"> Voucher #{invoiceID} </h3>
-      <img
-        ref={imageRef}
-        src={imageLink}
-        alt="Voucher"
-        className="h-[70vh]   mb-3"
+      <VoucherImage
+        invoiceID={invoiceID}
+        imageRef={imageRef}
+        imageLink={imageLink}
       />
     </div>
   );
