@@ -5,7 +5,7 @@ import InvoiceSummary from "./InvoiceSummary";
 import Voucher from "./Voucher";
 
 interface Props {
-  Image: string;
+  image: string;
   client: string;
   date: string;
   discount: number;
@@ -17,7 +17,7 @@ interface Props {
 
 const InvoiceRow = ({
   client,
-  Image,
+  image,
   discount,
   date,
   invoiceNumber,
@@ -25,6 +25,7 @@ const InvoiceRow = ({
   total,
   subtotal,
 }: Props) => {
+  console.log("From InvoiceRow", image)
   return (
     <tr>
       <td>{invoiceNumber} </td>
@@ -35,9 +36,9 @@ const InvoiceRow = ({
       <td>${total}</td>
       <td>
         <Modals
-          childrenModal={<Voucher image={Image}  invoiceID={invoiceNumber}/>}
+          childrenModal={<Voucher image={image}  invoiceID={invoiceNumber}/>}
           childrenButton={<IoReceiptOutline size={30} />}
-          modalKey={`${Image}Receipt${invoiceNumber}`}
+          modalKey={`${image}Receipt${invoiceNumber}`}
         />
         {/* <LiaCubesSolid size={30} /> */}
       </td>
