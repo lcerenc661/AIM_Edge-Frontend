@@ -3,7 +3,7 @@ interface Props {
   invoiceID: string;
 }
 
-const Voucher = ({ image }: Props) => {
+const Voucher = ({ image, invoiceID }: Props) => {
   let imageLink;
   if (image.length > 20) {
     imageLink = image;
@@ -13,7 +13,7 @@ const Voucher = ({ image }: Props) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h3 className="text-xl font-bold my-3"> Voucher # 375 </h3>
+      <h3 className="text-xl font-bold my-3"> Voucher #{invoiceID} </h3>
       <img src={imageLink} alt="Voucher" className="h-[70vh]   mb-3" />
     </div>
   );
