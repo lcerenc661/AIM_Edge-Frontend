@@ -4,12 +4,13 @@ interface Props {
 }
 
 const Voucher = ({ image, invoiceID }: Props) => {
-  let imageLink;
-  if (image.length > 20) {
-    imageLink = image;
-  } else {
-    imageLink = "/imageHolder.jpg";
-  }
+  // let imageLink;
+  // if (image.length > 20) {
+  //   imageLink = image;
+  // } else {
+  //   imageLink = "/imageHolder.jpg";
+  // }
+  const imageLink = image
 
   return (
     <div className="flex flex-col items-center">
