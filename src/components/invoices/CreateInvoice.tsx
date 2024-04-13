@@ -123,8 +123,8 @@ const CreateInvoice = ({ users, products }: Props) => {
         { ...data }
       );
       console.log(response);
-      refreshPage()
-      return  toast.success("Order placed successfully");
+      refreshPage();
+      return toast.success("Order placed successfully");
     } catch (err) {
       toast.error("There has been an error");
       console.log(err);
@@ -162,7 +162,8 @@ const CreateInvoice = ({ users, products }: Props) => {
             />
             <div
               onClick={() => handleApplyDiscount()}
-              className="btn-sm bg-slate-800 text-white self-end rounded-lg mb-1">
+              className="btn-sm bg-slate-800 text-white self-end rounded-lg mb-1"
+            >
               {" "}
               Apply
             </div>
@@ -190,7 +191,8 @@ const CreateInvoice = ({ users, products }: Props) => {
             />
             <div
               onClick={handleClick}
-              className="btn-sm md:self-end md:mb-[6px] bg-slate-500 text-white rounded-lg text-center md:w-auto w-[200px] md:my-0 my-6 ">
+              className="btn-sm md:self-end md:mb-[6px] bg-slate-500 text-white rounded-lg text-center md:w-auto w-[200px] md:my-0 my-6 "
+            >
               +
             </div>
           </div>
@@ -199,20 +201,24 @@ const CreateInvoice = ({ users, products }: Props) => {
         <div className="md:col-span-3 col-span-1 md:row-span-1">
           <InvoiceSummarySmall />
         </div>
-        <ImageForm />
+        <div className="md:row-start-1 md:col-start-4 col-span-1 md:row-span-2 md:border-l-2 md:justify-self-center md:p-3  md:border-gray-300">
+          <ImageForm />
+        </div>
       </div>
       <div className="flex gap-8 items-center ">
         <div>
           <button
             type="button"
             className="btn m-3"
-            onClick={() => handleSaveInvoice()}>
+            onClick={() => handleSaveInvoice()}
+          >
             Save
           </button>
           <button
             className="btn m-3"
             type="button"
-            onClick={() => handleDelete()}>
+            onClick={() => handleDelete()}
+          >
             Delete
           </button>
         </div>
