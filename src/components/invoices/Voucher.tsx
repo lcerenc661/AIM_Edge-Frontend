@@ -9,9 +9,11 @@ const Voucher = ({ image, invoiceID }: Props) => {
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    const currentImageRef = imageRef.current; // Copiar el valor de imageRef.current en una variable local
+
     return () => {
-      if (imageRef.current) {
-        imageRef.current.removeEventListener("load", () => {});
+      if (currentImageRef) {
+        currentImageRef.removeEventListener("load", () => {});
       }
     };
   }, []);
