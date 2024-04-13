@@ -17,6 +17,7 @@ const tableHeadersData = [
 
 const InvoiceTable = () => {
   const { invoices, meta, user, users, products }: any = useLoaderData();
+  console.log(invoices);
   let { currentPage, totalPages } = meta;
   if (currentPage > totalPages) {
     currentPage = totalPages;

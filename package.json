@@ -23,6 +23,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
     "typescript": "^4.9.5",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
     "zustand": "^4.5.2"
   },
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.10.1",
     "postcss": "^8.4.38",

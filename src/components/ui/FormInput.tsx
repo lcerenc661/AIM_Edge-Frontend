@@ -4,7 +4,7 @@ interface Props {
   type: string;
   size?: string;
   value?: any;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormInput = ({ label, name, type, size, value, onChange }: Props) => {

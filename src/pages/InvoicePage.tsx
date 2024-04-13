@@ -44,6 +44,7 @@ export const loader =
     let response;
     try {
       response = await queryClient.ensureQueryData(invoiceQuery(params, token));
+      console.log(response)
     } catch (error) {
       return redirect("/auth/login");
     }
@@ -52,7 +53,6 @@ export const loader =
     const productResponse = await customFetch("/products");
     const products = productResponse.data.productsArray;
     const users = usersResponse.data.usersArray;
-    console.log(users);
     const invoices = response.data.invoicesArray;
     const meta = response.data.paginationInfo;
 
