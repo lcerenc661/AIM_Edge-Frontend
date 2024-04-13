@@ -56,7 +56,7 @@ const InvoiceTable = () => {
           <tbody>
             {invoices.map((invoice: any) => {
               const {
-                Image,
+                Image: image,
                 client,
                 date,
                 discount,
@@ -68,7 +68,7 @@ const InvoiceTable = () => {
               return (
                 <InvoiceRow
                   key={invoiceNumber}
-                  Image={Image}
+                  image={image}
                   client={client}
                   date={date}
                   discount={discount}
