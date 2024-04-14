@@ -5,6 +5,7 @@ import { customImageFetch } from "../../api/axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setImageLink } from "../../features/cart/cartSlice";
+import SectionTitle from "../invoiceForm/SectionTitle";
 
 const ImageForm = () => {
   const dispatch = useDispatch();
@@ -32,12 +33,12 @@ const ImageForm = () => {
 
   return (
     <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
-      <div className="flex md:flex-col items-center m-2 gap-4 flex-col-reverse">
-        <h3 className="text-xl font-bold my-3"> Voucher # 375 </h3>
+      <SectionTitle title={"Image"} step={"3"} />
+      <div className="flex md:flex-col items-center mx-2 my-3 gap-4 flex-col">
         <img
           src={"/imageHolder.jpg"}
           alt="Voucher"
-          className="md:w-52 w-32 md:self-end"
+          className="md:w-24 w-16 rounded-sm"
         />
 
         <FormInput
@@ -46,10 +47,13 @@ const ImageForm = () => {
           type={"file"}
           size={"md:w-[200px] w-[300px]"}
         />
+        <button
+          type="submit"
+          className="btn-sm bg-slate-800 text-white mx-2 mt-4 rounded-lg cursor-pointer flex items-center hover:bg-slate-400 hover:scale-105 transition-all"
+        >
+          Save Image
+        </button>
       </div>
-      <button type="submit" className="btn m-3">
-        Save Image
-      </button>
     </form>
   );
 };

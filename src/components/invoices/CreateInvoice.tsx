@@ -16,6 +16,8 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import ImageForm from "./ImageForm";
+import UserInputs from "../invoiceForm/UserInputs";
+import ProductInputs from "../invoiceForm/ProductInputs";
 
 interface User {
   clientSeniority: string;
@@ -30,66 +32,10 @@ interface Props {
 
 const CreateInvoice = ({ users, products }: Props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const refreshPage = () => {
     navigate(0);
-    //refreshingg
-  };
-
-  const dispatch = useDispatch();
-  const productsNames = products.map((product: any) => product.name);
-  const usersNames = users.map((user: any) => user.name);
-
-  const [client, setClient] = useState("");
-  const [discount, setDiscount] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState("");
-
-  const handleClientChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setClient(event.target.value);
-    const newName = event.target.value;
-    console.log({ client: newName });
-    const selectedClient = users.filter((user) => user.name === newName);
-    if (selectedClient[0]) {
-      const { clientSeniority, id, name, totalSales } = selectedClient[0];
-      dispatch(setInvoiceClient({ clientSeniority, id, name, totalSales }));
-    }
-  };
-
-  const handleDiscountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDiscount(event.target.value);
-  };
-
-  const handleApplyDiscount = () => {
-    if (!Number(discount)) {
-      return toast.error("Please enter a numeric value (0-100)");
-    }
-
-    dispatch(setInvoiceDiscount(+discount));
-  };
-
-  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(event.target.value);
-  };
-
-  const handleProductChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedProduct(event.target.value);
-  };
-
-  const handleClick = () => {
-    console.log({ name: selectedProduct });
-    const selProduct = products.filter(
-      (product) => product.name === selectedProduct
-    );
-    console.log(selProduct);
-    if (selProduct[0]) {
-      const { id, name, value } = selProduct[0] as any;
-      if (quantity === "") {
-        return toast.error("Select Quantity");
-      }
-      // dispatch(addToCart(payload:{ quantity, ...selProduct }));
-      dispatch(addToCart({ quantity, id, name, value }));
-    }
   };
 
   const handleDelete = () => {
@@ -99,12 +45,8 @@ const CreateInvoice = ({ users, products }: Props) => {
   const invoiceTotal = useSelector(
     (state: RootState) => state.cartState.cartTotal
   );
-  const discountApplied = useSelector(
-    (state: RootState) => state.cartState.discount
-  );
 
   const user = useSelector((state: any) => state.userState.user);
-
   const token = user.token;
   const data = useSelector((state: RootState) => state.cartState.requestData);
 
@@ -133,99 +75,44 @@ const CreateInvoice = ({ users, products }: Props) => {
 
   return (
     <div>
-      <h2>Add new invoice</h2>
+      <h2 className="text-3xl font-bold text-slate-500">Add new invoice</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 md:grid-row-2  md:justify-items-stretch justify-items-start">
-        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:col-span-3 col-span-1 md:row-span-1 ">
-          <FormSelect
-            label={"client"}
-            name={"client"}
-            list={usersNames}
-            size={"w-[200px] "}
-            value={client}
-            onChange={handleClientChange}
-          />
-          <div className="flex gap-4 items-center relative">
-            {+discountApplied > 0 && (
-              <div className="absolute -left-10 bottom-2 rounded-full bg-green-700 text-white  transition-all ">
-                <IoCheckmarkDone size={25} />
-              </div>
-            )}
-
-            <FormInput
-              label={"discount"}
-              name={"discount"}
-              type={"input"}
-              size={"w-[200px] row-start-2 "}
-              value={discount}
-              onChange={handleDiscountChange}
-            />
-            <div
-              onClick={() => handleApplyDiscount()}
-              className="btn-sm bg-slate-800 text-white self-end rounded-lg mb-1"
-            >
-              {" "}
-              Apply
-            </div>
-          </div>
-
-          <div className="flex md:flex-row flex-col items-center gap-2">
-            <div>
-              <FormSelect
-                label={"product"}
-                name={"product"}
-                list={productsNames}
-                size={"lg:w-[150px] md:w-[100px] w-[200px]"}
-                value={selectedProduct}
-                onChange={handleProductChange}
-              />
-            </div>
-
-            <FormInput
-              label={"quantity"}
-              name={"quantity"}
-              type={"input"}
-              size={"md:w-[50px] w-[200px]"}
-              value={quantity}
-              onChange={handleQuantityChange}
-            />
-            <div
-              onClick={handleClick}
-              className="btn-sm md:self-end md:mb-[6px] bg-slate-500 text-white rounded-lg text-center md:w-auto w-[200px] md:my-0 my-6 "
-            >
-              +
-            </div>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 md:grid-row-2  justify-items-start transition-all mt-4  ">
+        <div className=" flex md:flex-row flex-col md:col-span-3 col-span-1 md:row-span-1 gap-3 items-center  ">
+          <UserInputs users={users} />
+          <ProductInputs products={products} />
         </div>
-
-        <div className="md:col-span-3 col-span-1 md:row-span-1">
+        <div className="md:col-span-3 col-span-1 md:row-span-1 justify-self-stretch">
           <InvoiceSummarySmall />
         </div>
-        <div className="md:row-start-1 md:col-start-4 col-span-1 md:row-span-2 md:border-l-2 md:justify-self-center md:p-3  md:border-gray-300">
+        <div className="md:row-start-1 md:col-start-4 col-span-1 md:row-span-2 border-2 rounded-xl md:justify-self-center md:px-3 md:pb-3 px-2 md:border-gray-300">
           <ImageForm />
         </div>
       </div>
-      <div className="flex gap-8 items-center ">
-        <div>
+      <div className="flex gap-8 items-center mt-2 md:mt-0">
+        <div className="flex md:gap-2">
           <button
             type="button"
-            className="btn m-3"
+            className="btn m-3 w-20  "
             onClick={() => handleSaveInvoice()}
           >
             Save
           </button>
           <button
-            className="btn m-3"
+            className="btn m-3 w-20 hover:bg-red-200"
             type="button"
             onClick={() => handleDelete()}
           >
             Delete
           </button>
         </div>
-        <p className="font-bold text-4xl">
+        <p className="font-bold text-4xl mr-10  border-b-2 border-slate-400">
           {" "}
-          <span className="text-2xl font-light"> Total</span>{" "}
-          {invoiceTotal as any}{" "}
+          <span className="text-2xl font-light text-slate-500  ">
+            {" "}
+            Total
+          </span>{" "} $
+          {invoiceTotal as any}
         </p>
       </div>
     </div>
