@@ -3,11 +3,17 @@ import { v4 as uuidv4 } from "uuid";
 import FormInput from "../ui/FormInput";
 import { customImageFetch } from "../../api/axios";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setImageLink } from "../../features/cart/cartSlice";
+import SectionTitle from "../invoiceForm/SectionTitle";
+import { RootState } from "../../utils/store";
+import { IoCheckmarkDone } from "react-icons/io5";
 
 const ImageForm = () => {
   const dispatch = useDispatch();
+
+  const isImageLoaded =
+    useSelector((state: RootState) => state.cartState.invoiceImage).length > 20;
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -21,7 +27,7 @@ const ImageForm = () => {
         formData
       );
       dispatch(setImageLink(response.data));
-      console.log(response.data)
+      console.log(response.data);
 
       toast.success("File uploaded successfully");
     } catch (error) {
@@ -32,23 +38,31 @@ const ImageForm = () => {
 
   return (
     <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
-      <div className="md:row-start-1 md:col-start-4 col-span-1 md:row-span-2 md:border-l-2 md:justify-self-center  md:border-gray-300">
-        <div className="flex md:flex-col items-center m-2 gap-4 flex-col-reverse">
-          <h3 className="text-xl font-bold my-3"> Voucher # 375 </h3>
+      <SectionTitle title={"Image"} step={"3"} />
+      <div className="flex md:flex-col items-center mx-2 my-3 gap-4 flex-col">
+        <figure className="relative">
           <img
             src={"/imageHolder.jpg"}
             alt="Voucher"
-            className="md:w-52 w-32 md:self-end"
+            className="md:w-24 w-16 rounded-sm"
           />
+          {+isImageLoaded > 0 && (
+            <div className="absolute inset-0  rounded-full bg-green-700 text-white  transition-all flex items-center justify-center opacity-75  scale-50">
+              <IoCheckmarkDone size={40} />
+            </div>
+          )}
+        </figure>
 
-          <FormInput
-            label={"file"}
-            name={"file"}
-            type={"file"}
-            size={"md:w-[200px] w-[300px]"}
-          />
-        </div>
-        <button type="submit" className="btn m-3">
+        <FormInput
+          label={"file"}
+          name={"file"}
+          type={"file"}
+          size={"md:w-[200px] w-[300px]"}
+        />
+        <button
+          type="submit"
+          className="btn-sm bg-slate-800 text-white mx-2 mt-4 rounded-lg cursor-pointer flex items-center hover:bg-slate-400 hover:scale-105 transition-all"
+        >
           Save Image
         </button>
       </div>
