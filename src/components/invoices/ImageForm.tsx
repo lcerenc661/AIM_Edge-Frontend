@@ -3,12 +3,17 @@ import { v4 as uuidv4 } from "uuid";
 import FormInput from "../ui/FormInput";
 import { customImageFetch } from "../../api/axios";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setImageLink } from "../../features/cart/cartSlice";
 import SectionTitle from "../invoiceForm/SectionTitle";
+import { RootState } from "../../utils/store";
+import { IoCheckmarkDone } from "react-icons/io5";
 
 const ImageForm = () => {
   const dispatch = useDispatch();
+
+  const isImageLoaded =
+    useSelector((state: RootState) => state.cartState.invoiceImage).length > 20;
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -35,11 +40,18 @@ const ImageForm = () => {
     <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
       <SectionTitle title={"Image"} step={"3"} />
       <div className="flex md:flex-col items-center mx-2 my-3 gap-4 flex-col">
-        <img
-          src={"/imageHolder.jpg"}
-          alt="Voucher"
-          className="md:w-24 w-16 rounded-sm"
-        />
+        <figure className="relative">
+          <img
+            src={"/imageHolder.jpg"}
+            alt="Voucher"
+            className="md:w-24 w-16 rounded-sm"
+          />
+          {+isImageLoaded > 0 && (
+            <div className="absolute inset-0  rounded-full bg-green-700 text-white  transition-all flex items-center justify-center opacity-75  scale-50">
+              <IoCheckmarkDone size={40} />
+            </div>
+          )}
+        </figure>
 
         <FormInput
           label={"file"}
