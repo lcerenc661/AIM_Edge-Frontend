@@ -1,12 +1,12 @@
 import { CiLogout } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../features/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const TopMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { user }: any = useLoaderData();
 
   const handleClick = () => {
     dispatch(logOutUser());
@@ -24,9 +24,9 @@ const TopMenu = () => {
             <p className="text-gray-200 lg:block">
               {" "}
               <span className="font-bold text- md:text-base">
-                AIM EDGE APP{" "}
+                {user.name}{" "}
               </span>{" "}
-              | <span className="font-light">Admin</span>{" "}
+              | <span className="font-light"> {user.role} </span>{" "}
             </p>
           </div>
         </div>
@@ -34,7 +34,8 @@ const TopMenu = () => {
         <div className="flex space-x-2">
           <button
             onClick={handleClick}
-            className="flex items-center justify-center w-[7rem] h-10  lg:hidden">
+            className="flex items-center justify-center w-[7rem] h-10  lg:hidden"
+          >
             <CiLogout className="mx-2" />
             <span className="text-gray-400 group-hover:text-gray-200">
               | Logout

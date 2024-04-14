@@ -34,7 +34,7 @@ const introText = ` We are an International IT consulting firm, focused in softw
 
 const RegisterPage = () => {
   return (
-    <section className="h-screen flex md:justify-center items-center gap-24 md:flex-row-reverse flex-col my-16 mt-28 ">
+    <section className="h-screen flex md:justify-center items-center gap-24 md:flex-row-reverse flex-col  my-28 ">
       <Form
         method="POST"
         className="card w-[350px] p-8 bg-base-100 shadow-lg flex flex-col gap-y-4">

@@ -107,6 +107,7 @@ const cartSlice = createSlice({
 
     setInvoiceClient: (state, action: PayloadAction<User>) => {
       state.client = action.payload;
+      state.discount = 0;
       console.log(current(state));
       return;
     },
@@ -153,6 +154,9 @@ const cartSlice = createSlice({
     },
 
     createRequestObject: (state) => {
+      if (state.cartItems.length === 0 || state.client.id === "") {
+        return;
+      }
       state.requestData = {
         clientId: state.client.id,
         clientSeniority: state.client.clientSeniority,
