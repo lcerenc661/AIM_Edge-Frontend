@@ -53,7 +53,7 @@ const ProductInputs = ({ products }: Props) => {
         label={"product"}
         name={"product"}
         list={productsNames}
-        size={"lg:w-[280px] md:w-[180px]  w-[300px]"}
+        size={"lg:w-[280px] md:w-[180px]  w-[270px]"}
         value={selectedProduct}
         onChange={handleProductChange}
       />

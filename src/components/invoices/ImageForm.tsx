@@ -44,7 +44,7 @@ const ImageForm = () => {
           <img
             src={"/imageHolder.jpg"}
             alt="Voucher"
-            className="md:w-24 w-16 rounded-sm"
+            className="lg:w-24 md:w-20 w-16 rounded-sm"
           />
           {+isImageLoaded > 0 && (
             <div className="absolute inset-0  rounded-full bg-green-700 text-white  transition-all flex items-center justify-center opacity-75  scale-50">
@@ -57,7 +57,7 @@ const ImageForm = () => {
           label={"file"}
           name={"file"}
           type={"file"}
-          size={"md:w-[200px] w-[300px]"}
+          size={"lg:w-[200px] md:w-[140px] w-[250px]"}
         />
         <button
           type="submit"
