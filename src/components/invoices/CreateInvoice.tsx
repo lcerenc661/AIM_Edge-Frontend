@@ -1,17 +1,9 @@
-import React, { useState } from "react";
-import FormInput from "../ui/FormInput";
-import FormSelect from "../ui/FormSelect";
 import InvoiceSummarySmall from "./InvoiceSummarySmall";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  clearCart,
-  setInvoiceClient,
-  setInvoiceDiscount,
-} from "../../features/cart/cartSlice";
+import { clearCart } from "../../features/cart/cartSlice";
 import { RootState } from "../../utils/store";
 import { toast } from "react-toastify";
-import { IoCheckmarkDone } from "react-icons/io5";
+
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
@@ -108,10 +100,7 @@ const CreateInvoice = ({ users, products }: Props) => {
         </div>
         <p className="font-bold text-4xl mr-10  border-b-2 border-slate-400">
           {" "}
-          <span className="text-2xl font-light text-slate-500  ">
-            {" "}
-            Total
-          </span>{" "} $
+          <span className="text-2xl font-light text-slate-500  "> Total</span> $
           {invoiceTotal as any}
         </p>
       </div>
