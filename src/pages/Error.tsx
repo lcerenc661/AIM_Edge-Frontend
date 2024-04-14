@@ -17,7 +17,7 @@ const Error = (): ReactElement => {
             Sorry, we couldn't find the page you're looking for.
           </p>
           <div className="mt-10">
-            <Link to="/" className="btn btn-secondary">
+            <Link to="/" className="btn btn-secondary bg-slate-800 border-0">
               Go back home
             </Link>
           </div>
