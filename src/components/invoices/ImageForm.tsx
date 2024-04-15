@@ -57,7 +57,7 @@ const ImageForm = () => {
           label={"file"}
           name={"file"}
           type={"file"}
-          size={"lg:w-[200px] md:w-[140px] w-[250px]"}
+          size={"lg:w-[200px] md:w-[140px] w-[210px]"}
         />
         <button
           type="submit"
