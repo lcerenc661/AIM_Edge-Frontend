@@ -67,7 +67,7 @@ const UserInputs = ({ users }: Props) => {
         label={"client"}
         name={"client"}
         list={usersNames}
-        size={"lg:w-[280px] md:w-[180px] w-[270px]"}
+        size={"lg:w-[280px] md:w-[180px] w-[210px]"}
         value={client}
         onChange={handleClientChange}
       />
