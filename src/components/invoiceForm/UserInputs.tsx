@@ -55,7 +55,7 @@ const UserInputs = ({ users }: Props) => {
   );
 
   return (
-    <div className="flex  flex-col gap-2 px-4 pb-4 bg-slate-100 rounded-xl md:self-auto self-stretch">
+    <div className="flex  flex-col gap-2 px-4 pb-4 bg-slate-100 rounded-xl md:self-auto self-stretch flex-grow">
       <div className="flex justify-between">
         <h3 className="text-xl font-bold text-slate-600">  User
         </h3>
@@ -67,13 +67,13 @@ const UserInputs = ({ users }: Props) => {
         label={"client"}
         name={"client"}
         list={usersNames}
-        size={"lg:w-[280px] md:w-[180px] w-[300px]"}
+        size={"lg:w-[280px] md:w-[180px] w-[270px]"}
         value={client}
         onChange={handleClientChange}
       />
       <div className="flex lg:gap-4 md:gap-1 gap-4 items-center relative">
         {+discountApplied > 0 && (
-          <div className="absolute lg:right-10 md:-right-3 bottom-1  rounded-full bg-green-700 text-white  transition-all ">
+          <div className="absolute lg:right-10 md:-right-3 bottom-1 right-10 rounded-full bg-green-700 text-white  transition-all ">
             <IoCheckmarkDone size={25} />
           </div>
         )}

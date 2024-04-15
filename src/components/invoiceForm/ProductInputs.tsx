@@ -39,7 +39,7 @@ const ProductInputs = ({ products }: Props) => {
     }
   };
   return (
-    <div className="flex  flex-col gap-2 px-4 pb-4 bg-slate-300 rounded-xl  ">
+    <div className="flex  flex-col gap-2 px-4 pb-4 bg-slate-300 rounded-xl  flex-grow  self-stretch">
       <div className="flex justify-between">
         <h3 className="text-xl font-bold">
           {" "}
@@ -53,7 +53,7 @@ const ProductInputs = ({ products }: Props) => {
         label={"product"}
         name={"product"}
         list={productsNames}
-        size={"lg:w-[280px] md:w-[180px]  w-[300px]"}
+        size={"lg:w-[280px] md:w-[180px]  w-[270px]"}
         value={selectedProduct}
         onChange={handleProductChange}
       />

@@ -9,11 +9,11 @@ const InvoiceSummarySmall = () => {
   const cart = useSelector((state: RootState) => state.cartState.cartItems);
 
   return (
-    <div className="h-[200px] w-[80%] flex flex-col items-center  bg-white md:rounded-xl  ">
-      <div className="overflow-x-auto  w-full ">
+    <div className="h-[200px] md:w-[100%]  flex flex-col items-center  bg-white md:rounded-xl  ">
+      <div className="overflow-x-auto  w-full text-xs ">
         <table className="table">
           {/* head */}
-          <thead className="text-lg font-bold">
+          <thead className="mb:text-lg   font-bold">
             <tr>
               {tableHeadersData.map((header) => {
                 return <th key={header}> {header} </th>;
