@@ -55,7 +55,7 @@ const UserInputs = ({ users }: Props) => {
   );
 
   return (
-    <div className="flex  flex-col gap-2 px-4 pb-4 bg-slate-100 rounded-xl md:self-auto self-stretch">
+    <div className="flex  flex-col gap-2 px-4 pb-4 bg-slate-100 rounded-xl md:self-auto self-stretch flex-grow">
       <div className="flex justify-between">
         <h3 className="text-xl font-bold text-slate-600">  User
         </h3>

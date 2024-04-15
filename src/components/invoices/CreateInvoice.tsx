@@ -70,14 +70,14 @@ const CreateInvoice = ({ users, products }: Props) => {
       <h2 className="text-3xl font-bold text-slate-500 text-center md:text-left">Add new invoice</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-4 md:grid-row-2  md:justify-items-start transition-all mt-4 justify-items-center   ">
-        <div className=" flex md:flex-row flex-col md:col-span-3 col-span-1 md:row-span-1 gap-3 items-center">
+        <div className=" flex md:flex-row flex-col md:col-span-3 col-span-1 md:row-span-1 gap-3 items-center w-full px-4">
           <UserInputs users={users} />
           <ProductInputs products={products} />
         </div>
-        <div className="md:col-span-3 col-span-1 md:row-span-1 md:justify-self-stretch">
+        <div className="md:col-span-3 col-span-1 md:row-span-1 justify-self-stretch flex-grow m-4">
           <InvoiceSummarySmall />
         </div>
-        <div className="md:row-start-1 md:col-start-4 col-span-1 md:row-span-2 border-2 rounded-xl  md:px-3 md:pb-3 px-2 md:border-gray-300 lg:w-auto md:w-11/12 w-[302px]">
+        <div className="md:row-start-1 md:col-start-4 col-span-1 md:row-span-2 border-2 rounded-xl  md:px-3 md:pb-3 px-2 md:border-gray-300 lg:w-auto justify-self-stretch flex-grow p-4">
           <ImageForm />
         </div>
       </div>
